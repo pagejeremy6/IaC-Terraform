@@ -27,6 +27,7 @@ resource "azurerm_network_security_group" "nsg_0" {
 
 }
 
+# Empty NSG for the untrust interface
 resource "azurerm_network_security_group" "nsg_1" {
   name                = join("", ["nsg_1", var.suffix_1])
   location            = var.location
@@ -45,6 +46,7 @@ resource "azurerm_subnet_network_security_group_association" "association_1" {
   network_security_group_id = azurerm_network_security_group.nsg_1.id
 }
 
+# Public IP
 resource "azurerm_public_ip" "pip_0" {
   name                = join("", ["pip_0", var.suffix_0])
   location            = var.location
@@ -65,6 +67,7 @@ resource "azurerm_public_ip" "pip_1" {
   domain_name_label   = join("", ["jayhomelab-", var.suffix_1])
 }
 
+# Network interfaces
 resource "azurerm_network_interface" "nic_0" {
   name                = join("", ["nic_0", var.suffix_0])
   location            = var.location
@@ -107,6 +110,7 @@ resource "azurerm_network_interface" "nic_2" {
   }
 }
 
+# VM
 resource "azurerm_virtual_machine" "vm_palo" {
   name                = join("", ["vm", var.project])
   location            = var.location
@@ -127,6 +131,7 @@ resource "azurerm_virtual_machine" "vm_palo" {
     version   = "latest"
   }
 
+# FromImage will automatically create it
   storage_os_disk {
     name          = "osDisk"
     create_option = "FromImage"

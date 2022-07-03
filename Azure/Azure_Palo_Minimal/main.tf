@@ -155,6 +155,7 @@ resource "azurerm_route_table" "udr_10" {
   }
 }
 
+# Associate route with subnet
 resource "azurerm_subnet_route_table_association" "association_subnet_0" {
   subnet_id      = azurerm_subnet.subnet_0.id
   route_table_id = azurerm_route_table.udr_0.id
